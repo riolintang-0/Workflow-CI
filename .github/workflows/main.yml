@@ -22,12 +22,13 @@ jobs:
           auto-update-conda: true
           python-version: "3.11"
 
-      # Langkah 3: Run MLflow Project (Struktur baru)
+      # Langkah 3: Install MLflow (LANGKAH BARU YANG PENTING)
+      - name: Install MLflow
+        run: pip install mlflow
+
+      # Langkah 4: Run MLflow Project
       - name: Run MLflow Project
         shell: bash
         run: |
-          # Tambahkan lokasi Conda ke GITHUB_PATH
           echo "${{ steps.setup_conda.outputs.conda-bin-dir }}" >> $GITHUB_PATH
-          
-          # Sekarang jalankan mlflow
           mlflow run MLProject/
