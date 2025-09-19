@@ -1,0 +1,14 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/mlruns/0/5c6fda1e3acb4fdcb1108c695742baaa/artifacts
+end_time: 1758304810240
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5c6fda1e3acb4fdcb1108c695742baaa
+run_name: auspicious-koi-296
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758304762009
+status: 3
+tags: []
+user_id: runner
