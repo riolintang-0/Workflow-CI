@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Langkah 2: Set up Conda (versi sederhana)
+      # Langkah 2: Set up Conda
       - name: Set up Conda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -22,11 +22,21 @@ jobs:
 
       # Langkah 3: Install & Run dalam satu shell yang sama
       - name: Install MLflow and Run Project
-        # Menggunakan login shell (-l) agar conda terinisialisasi
         shell: bash -l {0}
         run: |
-          # Pertama, install mlflow di lingkungan dasar
           pip install mlflow
-          
-          # Kedua, jalankan project. MLflow sekarang bisa menemukan conda.
           mlflow run MLProject/
+
+      # Langkah 4: Commit dan Push Hasil Eksperimen 
+      - name: Commit and Push MLflow Artifacts
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          # Pesan commit yang akan dibuat
+          commit_message: "ci: [Automated] Add trained model artifacts"
+          
+          # Folder yang akan di-commit (folder output MLflow)
+          file_pattern: mlruns/
+          
+          # Nama dan email untuk commit bot
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: actions@github.com
