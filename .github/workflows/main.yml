@@ -8,6 +8,8 @@ on:
 jobs:
   retrain-model:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # memberikan izin untuk push
     steps:
       # Langkah 1: Checkout Repository
       - name: Checkout Repository
@@ -32,7 +34,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           # Pesan commit yang akan dibuat
-          commit_message: "ci: [Automated] Add trained model artifacts"
+          commit_message: "ci: [Automated] Add trained model artifacts [skip ci]"
           
           # Folder yang akan di-commit (folder output MLflow)
           file_pattern: mlruns/
