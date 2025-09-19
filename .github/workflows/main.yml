@@ -10,25 +10,25 @@ jobs:
   retrain-model:
     runs-on: ubuntu-latest
     steps:
-      # Langkah 1: Mengunduh kode dari repository
+      # Langkah 1: Checkout Repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Langkah 2: Menyiapkan lingkungan Conda
+      # Langkah 2: Set up Conda
       - name: Set up Conda
-        id: setup_conda
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
           python-version: "3.11"
+          # Mengaktifkan lingkungan dasar Conda untuk langkah selanjutnya
+          activate-environment: base
 
-      # Langkah 3: Install MLflow (LANGKAH BARU YANG PENTING)
+      # Langkah 3: Install MLflow
       - name: Install MLflow
         run: pip install mlflow
 
       # Langkah 4: Run MLflow Project
+      # Menggunakan login shell (-l) agar conda terinisialisasi dengan benar
       - name: Run MLflow Project
-        shell: bash
-        run: |
-          echo "${{ steps.setup_conda.outputs.conda-bin-dir }}" >> $GITHUB_PATH
-          mlflow run MLProject/
+        shell: bash -l {0}
+        run: mlflow run MLProject/
