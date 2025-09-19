@@ -1,0 +1,13 @@
+name: sentiment-analysis-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - mlflow==2.15.1
+    - pandas==2.2.2
+    - scikit-learn==1.5.1
+    - openpyxl==3.1.5
+    - Sastrawi==1.0.1

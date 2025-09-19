@@ -1,0 +1,27 @@
+name: MLflow Retraining CI
+
+# Pemicu: jalankan workflow saat ada push ke branch 'main'
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  retrain-model:
+    runs-on: ubuntu-latest
+    steps:
+      # Langkah 1: Mengunduh kode dari repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Langkah 2: Menyiapkan lingkungan Conda
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          python-version: "3.11"
+
+      # Langkah 3: Menjalankan MLflow Project
+      - name: Run MLflow Project
+        shell: bash -l {0}
+        run: mlflow run MLProject/
