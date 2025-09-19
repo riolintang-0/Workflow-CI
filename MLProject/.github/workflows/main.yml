@@ -16,6 +16,7 @@ jobs:
 
       # Langkah 2: Menyiapkan lingkungan Conda
       - name: Set up Conda
+        id: setup_conda
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
@@ -23,5 +24,8 @@ jobs:
 
       # Langkah 3: Menjalankan MLflow Project
       - name: Run MLflow Project
+        env:
+            # Beritahu MLflow lokasi Conda dari output langkah sebelumnya
+            MLFLOW_CONDA_HOME: ${{ steps.setup_conda.outputs.conda-prefix }}
         shell: bash -l {0}
         run: mlflow run MLProject/
