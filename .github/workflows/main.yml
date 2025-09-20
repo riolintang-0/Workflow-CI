@@ -43,7 +43,7 @@ jobs:
           # Ganti <DOCKERHUB_USERNAME> dan <REPO_NAME> dengan milik Anda
           mlflow models build-docker \
             --model-uri "./MLProject" \
-            --name "riolintang-0/sentiment-analysis-ci:latest" \
+            --name "riolintang/sentiment-analysis-ci:latest" \
             --enable-mlserver
             
       # --- AKHIR LANGKAH BARU ---
