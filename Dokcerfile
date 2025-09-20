@@ -1,0 +1,20 @@
+# Gunakan base image resmi dari Conda
+FROM continuumio/miniconda3
+
+# Tentukan direktori kerja di dalam container
+WORKDIR /app
+
+# Salin file environment Conda terlebih dahulu
+COPY MLProject/conda.yaml .
+
+# Buat environment Conda dari file tersebut
+RUN conda env create -f conda.yaml
+
+# Salin semua file dari folder MLProject ke dalam direktori kerja
+COPY MLProject/ .
+
+# Atur shell agar perintah selanjutnya berjalan di dalam environment Conda kita
+SHELL ["conda", "run", "-n", "sentiment-analysis-env", "/bin/bash", "-c"]
+
+# Perintah default yang akan dijalankan saat container dimulai
+ENTRYPOINT ["python", "modelling.py"]

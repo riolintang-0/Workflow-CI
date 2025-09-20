@@ -15,42 +15,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Conda
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          auto-update-conda: true
-          python-version: "3.11"
+      # (Langkah 'Set up Conda' dan 'mlflow run' tidak lagi diperlukan di sini,
+      # karena proses training akan terjadi di dalam Docker build jika kita mau,
+      # atau kita bisa tetap menjalankannya untuk menyimpan artefak di Git)
 
-      - name: Install MLflow and Run Project
-        shell: bash -l {0}
-        run: |
-          pip install mlflow
-          mlflow run MLProject/
-      
-      # --- LANGKAH-LANGKAH BARU UNTUK ADVANCE ---
-
-      # Langkah 4: Login ke Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Langkah 5: Build dan Push Docker Image dengan MLflow
-      - name: Build and Push Docker Image
-        shell: bash -l {0}
+      - name: Build and push Docker image
         run: |
-          # Ganti <DOCKERHUB_USERNAME> dan <REPO_NAME> dengan milik Anda
-          mlflow build-docker \
-            --tag "riolintang/sentiment-analysis-ci:latest" \
-            ./MLProject
-            
-      # --- AKHIR LANGKAH BARU ---
-
-      # Langkah 6: Commit dan Push Hasil Eksperimen
-      - name: Commit and Push MLflow Artifacts
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "ci: [Automated] Add artifacts and build Docker image [skip ci]"
-          commit_user_name: GitHub Actions Bot
-          commit_user_email: actions@github.com
+          # Ganti <DOCKERHUB_USERNAME> dengan username Anda
+          docker build -t riolintang/sentiment-analysis-ci:latest .
+          docker push riolintang/sentiment-analysis-ci:latest
