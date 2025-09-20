@@ -41,10 +41,9 @@ jobs:
         shell: bash -l {0}
         run: |
           # Ganti <DOCKERHUB_USERNAME> dan <REPO_NAME> dengan milik Anda
-          mlflow models build-docker \
-            --model-uri "./MLProject" \
-            --name "riolintang/sentiment-analysis-ci:latest" \
-            --enable-mlserver
+          mlflow build-docker \
+            --tag "riolintang/sentiment-analysis-ci:latest" \
+            ./MLProject
             
       # --- AKHIR LANGKAH BARU ---
 
