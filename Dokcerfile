@@ -7,7 +7,7 @@ WORKDIR /app
 # Salin file environment Conda terlebih dahulu
 COPY MLProject/conda.yaml .
 
-# Buat environment Conda dari file tersebut
+# Buat environment Conda dari file
 RUN conda env create -f conda.yaml
 
 # Salin semua file dari folder MLProject ke dalam direktori kerja
