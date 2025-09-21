@@ -39,7 +39,7 @@ if not KAMUS_POSITIF or not KAMUS_NEGATIF:
 print(f"Berhasil memuat {len(KAMUS_POSITIF)} kata positif dan {len(KAMUS_NEGATIF)} kata negatif.")
 
 # 3. Memuat Data yang Sudah Dibersihkan
-df = pd.read_csv('data_processed/dataset_rs_processed.csv')
+df = pd.read_csv('data/dataset_rs_processed.csv')
 df.dropna(subset=['ulasan'], inplace=True)
 
 # 4. Membuat Label Sentimen
